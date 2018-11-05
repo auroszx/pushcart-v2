@@ -1,0 +1,25 @@
+{
+  "name": "pushcart-v2",
+  "version": "1.0.0",
+  "description": "V2 Server for the Pushcart shopping cart app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "nodemon index.js"
+  },
+  "keywords": [
+    "pushcart",
+    "shopping",
+    "cart",
+    "server"
+  ],
+  "author": "Andrés Hernández (auroszx)",
+  "license": "ISC",
+  "dependencies": {
+    "jsonwebtoken": "^8.3.0",
+    "md5": "^2.2.1",
+    "nodemon": "^1.18.4",
+    "server": "^1.0.18",
+    "sqlite3": "^4.0.2"
+  }
+}
