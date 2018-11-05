@@ -2,7 +2,6 @@ const server = require('server');
 const { get, post, put, del, error } = server.router;
 const { json, status, header } = server.reply;
 const user = require('./controllers/UserController');
-const notes = require('./controllers/NotesController');
 
 const cors = [
   ctx => header("Access-Control-Allow-Origin", "*"),

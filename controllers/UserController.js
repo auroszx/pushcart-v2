@@ -27,7 +27,7 @@ module.exports = {
 		return db.get("SELECT user_id, user_fullname, user_username, user_email from users WHERE user_username = (?) AND user_password = (?)", [username, md5(password)]);
 	},
 
-	checkBefore: async function(username, email, password) {
+	checkBefore: async function(username, fullname, email, password) {
 		if (!username || username.trim(" ") == "") {
 			return { success: false, status: 500, message: "Username can't be empty"};
 		}
@@ -36,6 +36,9 @@ module.exports = {
 		}
 		else if (!password || password.trim(" ") == "") {
 			return { success: false, status: 500, message: "Password can't be empty"};
+		}
+		else if (!fullname || fullname.trim(" ") == "") {
+			return { success: false, status: 500, message: "Full name can't be empty"};
 		}
 		else {
 			db.connect();
@@ -55,7 +58,7 @@ module.exports = {
 
 	addUser: async function(username, fullname, password, email) {
 		db.connect();
-		var result = await this.checkBefore(username, email, password);
+		var result = await this.checkBefore(username, fullname, email, password);
 		if (result.success) {
 			return await db.execute("INSERT INTO users (user_username, user_fullname, user_password, user_email) VALUES ((?), (?), (?), (?))", [username, fullname, md5(password), email]);
 		}

@@ -7,7 +7,7 @@ let connection = null;
 module.exports = {
 
 	connect: function() {
-		this.connection = new sqlite3.Database(path.join(__dirname, '..', 'db', 'notikha.db'), (err) => {
+		this.connection = new sqlite3.Database(path.join(__dirname, '..', 'db', 'pushcart.db'), (err) => {
 			if (err) {
 			    console.error(err.message);
 			}

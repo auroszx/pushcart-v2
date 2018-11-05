@@ -1,4 +1,4 @@
-# Notikha server
+# Pushcart V2 server
 
 V2 Server for the Pushcart shopping cart app, found [here](https://github.com/auroszx/pushcart-mobile).
 
