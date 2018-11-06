@@ -2,6 +2,7 @@ const server = require('server');
 const { get, post, put, del, error } = server.router;
 const { json, status, header } = server.reply;
 const user = require('./controllers/UserController');
+const product = require('./controllers/ProductController');
 
 const cors = [
   ctx => header("Access-Control-Allow-Origin", "*"),
@@ -22,6 +23,14 @@ var routes = [
 
 	post('/user/login', async ctx => {
 		return json(await user.login(ctx.data.username, ctx.data.password));
+	}),
+
+	del('/user/delete/:id', async ctx => {
+		return json(await user.deleteUser(parseInt(ctx.params.id), ctx.headers.authorization));
+	}),
+
+	put('/user/update', async ctx => {
+		return json(await user.updateUser(ctx.data.username, ctx.data.fullname, ctx.data.email, ctx.data.password, ctx.headers.authorization));
 	}),
 
 
