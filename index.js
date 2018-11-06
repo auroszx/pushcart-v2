@@ -35,7 +35,13 @@ var routes = [
 
 
 	// Product routes
-	
+	get('/products/user/:id', async ctx => {
+		return json(await product.getProductsByUser(parseInt(ctx.params.id), ctx.headers.authorization));
+	}),
+
+	get('/products', async ctx => {
+		return json(await product.getAllProducts(ctx.headers.authorization));
+	}),
 	
 
 	// Extra error handling
