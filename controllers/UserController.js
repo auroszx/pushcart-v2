@@ -107,17 +107,12 @@ module.exports = {
 		}
 	},
 
-	deleteUser: async function(user_id, token) {
+	deleteUser: async function(token) {
 		if (token != undefined) {
 			var data = await auth.verify(token);
-			if (data.user_id == user_id) {
-				db.connect();
-				var del = await db.get("DELETE from users WHERE user_id = (?)", [user_id]);
-				return { status: 200, message: "User deleted successfully" };
-			}
-			else {
-				return { status: 403, message: "You are not allowed to delete other users"};
-			}
+			db.connect();
+			var del = await db.get("DELETE from users WHERE user_id = (?)", [data.user_id]);
+			return { status: 200, message: "User deleted successfully" };
 		}
 		else {
 			return { status: 403, message: "You are not allowed to perform this action" };

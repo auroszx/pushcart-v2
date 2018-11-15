@@ -25,8 +25,8 @@ var routes = [
 		return json(await user.login(ctx.data.username, ctx.data.password));
 	}),
 
-	del('/user/delete/:id', async ctx => {
-		return json(await user.deleteUser(parseInt(ctx.params.id), ctx.headers.authorization));
+	del('/user/delete', async ctx => {
+		return json(await user.deleteUser(ctx.headers.authorization));
 	}),
 
 	put('/user/update', async ctx => {
@@ -39,10 +39,29 @@ var routes = [
 		return json(await product.getProductsByUser(parseInt(ctx.params.id), ctx.headers.authorization));
 	}),
 
-	get('/products', async ctx => {
-		return json(await product.getAllProducts(ctx.headers.authorization));
+	get('/products/:search', async ctx => {
+		return json(await product.getAllProducts(ctx.params.search, ctx.headers.authorization));
 	}),
-	
+
+	get('/products/:id', async ctx => {
+		return json(await product.getProductInfo(parseInt(ctx.params.id), ctx.headers.authorization));
+	}),
+
+	get('/products/stock/:id', async ctx => {
+		return json(await product.getProductStock(parseInt(ctx.params.id), ctx.headers.authorization));
+	}),
+
+	post('/products/create', async ctx => {
+		return json(await product.addProduct(ctx.data.product_title, ctx.data.product_desc, ctx.data.product_image, ctx.data.product_stock, ctx.headers.authorization));
+	}),
+
+	del('/products/delete/:id', async ctx => {
+		return json(await product.deleteProduct(parseInt(ctx.params.id), ctx.headers.authorization));
+	}),
+
+	put('/products/update', async ctx => {
+		return json(await product.updateProduct(ctx.data.product_id, ctx.data.product_title, ctx.data.product_desc, ctx.data.product_image, ctx.data.product_stock, ctx.headers.authorization));
+	}),
 
 	// Extra error handling
 	error(ctx => status(500).json({status: 500, message: ctx.error.message}))

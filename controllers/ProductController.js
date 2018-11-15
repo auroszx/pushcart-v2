@@ -15,10 +15,16 @@ module.exports = {
 		}
 	},
 
-	getAllProducts: async function(token) {
+	getAllProducts: async function(search, token) {
 		if (token != undefined) {
+			console.log(search);
 			db.connect();
-			return db.get("SELECT * from products");
+			if (search = "send_all") {
+				return db.get("SELECT * from products");
+			}
+			else {
+				return db.get("SELECT * from products WHERE product_title LIKE (?)", ["%"+search+"%"]);
+			}
 		}
 		else {
 			return { status: 403, message: "You are not allowed to perform this action" };
@@ -45,7 +51,7 @@ module.exports = {
 		}
 	},
 
-	addProduct: async function(product_title, product_desc, product_image, product_stock) {
+	addProduct: async function(product_title, product_desc, product_image, product_stock, token) {
 		if (token != undefined) {
 			var data = await auth.verify(token);
 			db.connect();
@@ -87,13 +93,13 @@ module.exports = {
 		}
 	},
 
-	updateProduct: async function(product_id, product_title, product_desc, product_image, product_stock) {
+	updateProduct: async function(product_id, product_title, product_desc, product_image, product_stock, token) {
 		if (token != undefined) {
 			var data = await auth.verify(token);
 			var result = await this.checkBeforeUpdate(product_title, product_desc, product_image, product_stock);
 			if (result.success) {
 				db.connect();
-				var del = await db.get("UPDATE products SET products_title = (?), product_desc = (?), product_image = (?), product_stock = (?) WHERE product_id = (?) AND user_id = (?)", [product_title, product_desc, product_image, product_stock, product_id, data.user_id]);
+				var del = await db.get("UPDATE products SET product_title = (?), product_desc = (?), product_image = (?), product_stock = (?) WHERE product_id = (?) AND user_id = (?)", [product_title, product_desc, product_image, product_stock, product_id, data.user_id]);
 				return { status: 200, message: "Product updated successfully", product: { product_id: product_id, product_title: product_title, product_desc: product_desc, product_image: product_image, product_stock: product_stock } };
 			}
 			else {
