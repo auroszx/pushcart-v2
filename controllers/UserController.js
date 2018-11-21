@@ -125,8 +125,15 @@ module.exports = {
 			var result = await this.checkBeforeUpdate(username, fullname, email, password, data.user_id);
 			if (result.success) {
 				db.connect();
-				var del = await db.get("UPDATE users SET user_username = (?), user_fullname = (?), user_email = (?), user_password = (?) WHERE user_id = (?)", [username, fullname, email, md5(password), data.user_id]);
-				return { status: 200, message: "User updated successfully", user: { username: username, fullname: fullname, email: email } };
+				if (password.trim() = "") {
+					var del = await db.get("UPDATE users SET user_username = (?), user_fullname = (?), user_email = (?) WHERE user_id = (?)", [username, fullname, email, data.user_id]);
+					return { status: 200, message: "User updated successfully", user: { username: username, fullname: fullname, email: email } };
+				}
+				else {
+					var del = await db.get("UPDATE users SET user_username = (?), user_fullname = (?), user_email = (?), user_password = (?) WHERE user_id = (?)", [username, fullname, email, md5(password), data.user_id]);
+					return { status: 200, message: "User updated successfully", user: { username: username, fullname: fullname, email: email } };
+				}
+				
 			}
 			else {
 				return result;
