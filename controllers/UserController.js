@@ -64,16 +64,13 @@ module.exports = {
 	},
 
 	checkBeforeUpdate: async function(username, fullname, email, password, id) {
-		if (!username || username.trim(" ") == "") {
+		if (!username || username == "") {
 			return { success: false, status: 500, message: "Username can't be empty"};
 		}
-		else if (!email || email.trim(" ") == "") {
+		else if (!email || email == "") {
 			return { success: false, status: 500, message: "Email can't be empty"};
 		}
-		else if (!password || password.trim(" ") == "") {
-			return { success: false, status: 500, message: "Password can't be empty"};
-		}
-		else if (!fullname || fullname.trim(" ") == "") {
+		else if (!fullname || fullname == "") {
 			return { success: false, status: 500, message: "Full name can't be empty"};
 		}
 		else {
@@ -132,7 +129,7 @@ module.exports = {
 			var result = await this.checkBeforeUpdate(username, fullname, email, password, data.user_id);
 			if (result.success) {
 				db.connect();
-				if (password.trim() = "") {
+				if (password.trim() == "") {
 					var del = await db.get("UPDATE users SET user_username = (?), user_fullname = (?), user_email = (?) WHERE user_id = (?)", [username, fullname, email, data.user_id]);
 					return { status: 200, message: "User updated successfully", user: { username: username, fullname: fullname, email: email } };
 				}
