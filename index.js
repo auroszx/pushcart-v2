@@ -6,13 +6,18 @@ const product = require('./controllers/ProductController');
 
 const cors = [
   ctx => header("Access-Control-Allow-Origin", "*"),
-  ctx => header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"),
+  ctx => header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, authorization"),
+  ctx => header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"),
   ctx => ctx.method.toLowerCase() === 'options' ? 200 : false
 ];
 
 var routes = [
 
 	// User routes
+	get('/user/me', async ctx => {
+		return json(await user.getUserMe(ctx.headers.authorization));
+	}),
+
 	get('/user/:id', async ctx => {
 		return json(await user.getUser(parseInt(ctx.params.id), ctx.headers.authorization));
 	}),

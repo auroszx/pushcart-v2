@@ -17,7 +17,6 @@ module.exports = {
 
 	getAllProducts: async function(search, token) {
 		if (token != undefined) {
-			console.log(search);
 			db.connect();
 			if (search = "send_all") {
 				return db.get("SELECT * from products");
