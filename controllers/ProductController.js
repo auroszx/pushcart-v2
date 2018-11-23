@@ -18,7 +18,7 @@ module.exports = {
 	getAllProducts: async function(search, token) {
 		if (token != undefined) {
 			db.connect();
-			if (search = "send_all") {
+			if (search == "send_all") {
 				return db.get("SELECT * from products");
 			}
 			else {
