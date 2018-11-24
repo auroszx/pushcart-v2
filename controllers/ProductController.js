@@ -55,7 +55,7 @@ module.exports = {
 			var data = await auth.verify(token);
 			db.connect();
 			var id = await db.execute("INSERT INTO products (product_title, product_desc, product_image, product_stock, user_id) VALUES ((?), (?), (?), (?), (?))", [product_title, product_desc, product_image, product_stock, data.user_id]);
-			return this.getProductInfo(id, token);
+			return {status: 200, product: this.getProductInfo(id, token) };
 		}
 		else {
 			return { status: 403, message: "You are not allowed to perform this action" };
