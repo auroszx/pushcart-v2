@@ -3,6 +3,7 @@ const { get, post, put, del, error } = server.router;
 const { json, status, header } = server.reply;
 const user = require('./controllers/UserController');
 const product = require('./controllers/ProductController');
+const comments = require('./controllers/CommentsController');
 
 const cors = [
   ctx => header("Access-Control-Allow-Origin", "*"),
@@ -66,6 +67,23 @@ var routes = [
 
 	put('/products/update', async ctx => {
 		return json(await product.updateProduct(ctx.data.product_id, ctx.data.product_title, ctx.data.product_desc, ctx.data.product_image, ctx.data.product_stock, ctx.headers.authorization));
+	}),
+
+	// Comment routes
+	get('/comments/product/:id', async ctx => {
+		return json(await comments.getCommentsByProduct(parseInt(ctx.params.id), ctx.headers.authorization));
+	}),
+
+	get('/comments/:id', async ctx => {
+		return json(await comments.getCommentById(parseInt(ctx.params.id), ctx.headers.authorization));
+	}),
+
+	post('/comments/create', async ctx => {
+		return json(await comments.addComment(ctx.data.product_id, cta.data.product_comment, ctx.headers.authorization));
+	}),
+
+	del('/comments/delete/:id', async ctx => {
+		return json(await comments.deleteComment(parseInt(ctx.params.id), ctx.headers.authorization));
 	}),
 
 	// Extra error handling
