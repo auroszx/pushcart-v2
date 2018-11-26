@@ -45,7 +45,7 @@ var routes = [
 		return json(await product.getProductsByUser(parseInt(ctx.params.id), ctx.headers.authorization));
 	}),
 
-	get('/products/:search', async ctx => {
+	get('/products/search=:search', async ctx => {
 		return json(await product.getAllProducts(ctx.params.search, ctx.headers.authorization));
 	}),
 
@@ -93,6 +93,8 @@ var routes = [
 
 
 // Running the server
-server({ security: { csrf: false } }, cors, routes).then(ctx => {
-  	console.log(`Pushcart V2 server running on http://localhost:${ctx.options.port}/`);
+server({ security: { csrf: false }, 
+		parser: { body: { limit: '20mb' }, json: { limit: '20mb' }
+		} }, cors, routes).then(ctx => {
+  			console.log(`Pushcart V2 server running on http://localhost:${ctx.options.port}/`);
 });

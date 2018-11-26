@@ -84,7 +84,7 @@ module.exports = {
 		else if (!product_image || product_image.trim(" ") == "") {
 			return { success: false, status: 500, message: "Product image must be provided"};
 		}
-		else if (!product_stock) {
+		else if (product_stock == undefined || product_stock == null) {
 			return { success: false, status: 500, message: "Product stock must be provided"};
 		}
 		else {
