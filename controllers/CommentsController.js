@@ -28,7 +28,7 @@ module.exports = {
 	getCommentById: async function(product_comment_id, token) {
 		if (token != undefined) {
 			db.connect();
-			return {status: 200, comments: await db.get("SELECT product_comment_id, product_comments.user_id, product_comment, users.user_fullname, users.user_username FROM product_comments JOIN users ON users.user_id = product_comments.user_id WHERE product_comment_id = (?)", [product_comment_id]);
+			return {status: 200, comments: await db.get("SELECT product_comment_id, product_comments.user_id, product_comment, users.user_fullname, users.user_username FROM product_comments JOIN users ON users.user_id = product_comments.user_id WHERE product_comment_id = (?)", [product_comment_id]) }
 		}
 		else {
 			return { status: 403, message: "You are not allowed to perform this action" };
