@@ -79,7 +79,7 @@ var routes = [
 	}),
 
 	post('/comments/create', async ctx => {
-		return json(await comments.addComment(ctx.data.product_id, cta.data.product_comment, ctx.headers.authorization));
+		return json(await comments.addComment(ctx.data.product_id, ctx.data.product_comment, ctx.headers.authorization));
 	}),
 
 	del('/comments/delete/:id', async ctx => {
