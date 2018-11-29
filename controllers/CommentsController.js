@@ -17,12 +17,10 @@ module.exports = {
 	},
 
 	addComment: async function(product_id, product_comment, token) {
-		console.log(product_id, product_comment);
 		if (token != undefined) {
 			var data = await auth.verify(token);
 			db.connect();
 			var id = await db.execute("INSERT INTO product_comments (product_id, user_id, product_comment) VALUES ((?), (?), (?))", [product_id, data.user_id, product_comment]);
-			console.log(id);
 			return { status: 200, comment: await this.getCommentById(id, token) };
 		}
 	},
