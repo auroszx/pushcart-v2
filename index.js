@@ -97,11 +97,15 @@ var routes = [
 	}),
 
 	del('/cart/delete/:id', async ctx => {
-		return json(await comments.deleteComment(parseInt(ctx.params.id), ctx.headers.authorization));
+		return json(await cart.deleteFromCart(parseInt(ctx.params.id), ctx.headers.authorization));
 	}),
 
 	del('/cart/clear', async ctx => {
-		return json(await comments.deleteComment(ctx.headers.authorization));
+		return json(await cart.clearCart(ctx.headers.authorization));
+	}),
+
+	get('/cart/buy', async ctx => {
+		return json(await cart.processSale(ctx.headers.authorization));
 	}),
 
 	// Extra error handling
