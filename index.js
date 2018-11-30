@@ -87,9 +87,9 @@ var routes = [
 		return json(await comments.deleteComment(parseInt(ctx.params.id), ctx.headers.authorization));
 	}),
 
-	//Cart routes
-	get('/cart/:id', async ctx => {
-		return json(await cart.getCartByUser(parseInt(ctx.params.id), ctx.headers.authorization));
+	// Cart routes
+	get('/cart', async ctx => {
+		return json(await cart.getCartByUser(ctx.headers.authorization));
 	}),
 
 	post('/cart/add', async ctx => {
