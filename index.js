@@ -108,6 +108,10 @@ var routes = [
 		return json(await cart.processSale(ctx.headers.authorization));
 	}),
 
+	put('/cart/setqty', async ctx => {
+		return json(await cart.setQuantity(ctx.data.user_wishlist_id, ctx.data.user_product_qty, ctx.headers.authorization));
+	}),
+
 	// Extra error handling
 	error(ctx => status(500).json({status: 500, message: ctx.error.message}))
 

@@ -81,9 +81,6 @@ module.exports = {
 		else if (!product_desc || product_desc.trim(" ") == "") {
 			return { success: false, status: 500, message: "Product description can't be empty"};
 		}
-		else if (!product_image || product_image.trim(" ") == "") {
-			return { success: false, status: 500, message: "Product image must be provided"};
-		}
 		else if (product_stock == undefined || product_stock == null) {
 			return { success: false, status: 500, message: "Product stock must be provided"};
 		}
